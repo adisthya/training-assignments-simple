@@ -12,16 +12,20 @@ public class CheckingAccount {
             throw new BusinessException("Limit exceeded!");
         }
     	
-        int sum = getSum( counterAccount );
-        
-        if (sum % 11 == 0) {
+        return getTransfer(counterAccount, amount);
+    }
+
+	private Transfer getTransfer(String counterAccount, Money amount) throws BusinessException {
+		int sum = getSum( counterAccount );
+		
+		if (sum % 11 == 0) {
             CheckingAccount acct = Accounts.findAcctByNumber(counterAccount);
             Transfer result = new Transfer(this, acct, amount);
             return result;
         } else {
             throw new BusinessException("Invalid account number!");
         }
-    }
+	}
     
     public int getSum( String counterAccount ) {
     	int sum = 0;
