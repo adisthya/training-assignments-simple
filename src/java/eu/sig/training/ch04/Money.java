@@ -1,9 +1,11 @@
 package eu.sig.training.ch04;
 
 public class Money {
+	private int value;
+	
     @SuppressWarnings("unused")
     public boolean greaterThan(int limit) {
-        return true;
+        return this.value > limit;
     }
 
     @SuppressWarnings("unused")

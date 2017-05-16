@@ -1,28 +1,18 @@
 package eu.sig.training.ch04;
 
 // tag::SavingsAccount[]
-public class SavingsAccount {
+public class SavingsAccount extends Account {
     private CheckingAccount registeredCounterAccount;
 
-    public Transfer makeTransfer(String counterAccount, Money amount) 
-        throws BusinessException {
-        return getTransfer(counterAccount, amount);
-    }
-
-	private Transfer getTransfer(String counterAccount, Money amount) throws BusinessException {
-		int sum = registeredCounterAccount.getSum( counterAccount );
-		
-		if (sum % 11 == 0) {
-            CheckingAccount acct = Accounts.findAcctByNumber(counterAccount);
-            Transfer result = new Transfer(this, acct, amount);
-            if (result.getCounterAccount().equals(this.registeredCounterAccount)) 
-            {
-                return result;
-            } else {
-                throw new BusinessException("Counter-account not registered!");
-            }
+    @Override
+    public Transfer makeTransfer(String counterAccount, Money amount) throws BusinessException {
+    	Transfer result = super.makeTransfer(counterAccount, amount);
+        
+        if (result.getCounterAccount().equals(this.registeredCounterAccount)) 
+        {
+            return result;
         } else {
-            throw new BusinessException("Invalid account number!!");
+            throw new BusinessException("Counter-account not registered!");
         }
 	}
 }
